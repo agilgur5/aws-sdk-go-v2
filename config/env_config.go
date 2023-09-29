@@ -57,7 +57,8 @@ const (
 
 	awsEc2MetadataServiceEndpointEnvVar = "AWS_EC2_METADATA_SERVICE_ENDPOINT"
 
-	awsEc2MetadataDisabled = "AWS_EC2_METADATA_DISABLED"
+	awsEc2MetadataDisabled   = "AWS_EC2_METADATA_DISABLED"
+	awsEc2MetadataV1Disabled = "AWS_EC2_METADATA_V1_DISABLED"
 
 	awsS3DisableMultiRegionAccessPointEnvVar = "AWS_S3_DISABLE_MULTIREGION_ACCESS_POINTS"
 
@@ -205,6 +206,11 @@ type EnvConfig struct {
 	// AWS_EC2_METADATA_DISABLED=true
 	EC2IMDSClientEnableState imds.ClientEnableState
 
+	// Specifies if EC2 IMDSv1 fallback is disabled.
+	//
+	// AWS_EC2_METADATA_V1_DISABLED=true
+	EC2IMDSV1FallbackDisabled *bool
+
 	// Specifies the EC2 Instance Metadata Service default endpoint selection mode (IPv4 or IPv6)
 	//
 	// AWS_EC2_METADATA_SERVICE_ENDPOINT_MODE=IPv6
@@ -322,6 +328,9 @@ func NewEnvConfig() (EnvConfig, error) {
 		return cfg, err
 	}
 	if err := setRetryModeFromEnvVal(&cfg.RetryMode, []string{awsRetryMode}); err != nil {
+		return cfg, err
+	}
+	if err := setBoolPtrFromEnvVal(&cfg.EC2IMDSV1FallbackDisabled, []string{awsEc2MetadataV1Disabled}); err != nil {
 		return cfg, err
 	}
 
@@ -644,6 +653,15 @@ func (c EnvConfig) GetEC2IMDSClientEnableState() (imds.ClientEnableState, bool, 
 	}
 
 	return c.EC2IMDSClientEnableState, true, nil
+}
+
+// GetEC2IMDSV1FallbackDisabled ...
+func (c EnvConfig) GetEC2IMDSV1FallbackDisabled() (bool, bool) {
+	if c.EC2IMDSV1FallbackDisabled == nil {
+		return false, false
+	}
+
+	return *c.EC2IMDSV1FallbackDisabled, true
 }
 
 // GetEC2IMDSEndpointMode implements a EC2IMDSEndpointMode option resolver interface.
