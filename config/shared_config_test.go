@@ -652,6 +652,30 @@ func TestNewSharedConfig(t *testing.T) {
 				AppID:   "12345",
 			},
 		},
+		"imdsv1 disabled = false": {
+			ConfigFilenames: []string{testConfigFilename},
+			Profile:         "ec2-metadata-v1-disabled-false",
+			Expected: SharedConfig{
+				Profile:           "ec2-metadata-v1-disabled-false",
+				EC2IMDSv1Disabled: aws.Bool(false),
+			},
+		},
+		"imdsv1 disabled = true": {
+			ConfigFilenames: []string{testConfigFilename},
+			Profile:         "ec2-metadata-v1-disabled-true",
+			Expected: SharedConfig{
+				Profile:           "ec2-metadata-v1-disabled-true",
+				EC2IMDSv1Disabled: aws.Bool(true),
+			},
+		},
+		"imdsv1 disabled = invalid": {
+			ConfigFilenames: []string{testConfigFilename},
+			Profile:         "ec2-metadata-v1-disabled-invalid",
+			Expected: SharedConfig{
+				Profile:           "ec2-metadata-v1-disabled-invalid",
+				EC2IMDSv1Disabled: aws.Bool(false),
+			},
+		},
 	}
 
 	for name, c := range cases {

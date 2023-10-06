@@ -57,8 +57,8 @@ const (
 
 	awsEc2MetadataServiceEndpointEnvVar = "AWS_EC2_METADATA_SERVICE_ENDPOINT"
 
-	awsEc2MetadataDisabled   = "AWS_EC2_METADATA_DISABLED"
-	awsEc2MetadataV1Disabled = "AWS_EC2_METADATA_V1_DISABLED"
+	awsEc2MetadataDisabled         = "AWS_EC2_METADATA_DISABLED"
+	awsEc2MetadataV1DisabledEnvVar = "AWS_EC2_METADATA_V1_DISABLED"
 
 	awsS3DisableMultiRegionAccessPointEnvVar = "AWS_S3_DISABLE_MULTIREGION_ACCESS_POINTS"
 
@@ -209,7 +209,7 @@ type EnvConfig struct {
 	// Specifies if EC2 IMDSv1 fallback is disabled.
 	//
 	// AWS_EC2_METADATA_V1_DISABLED=true
-	EC2IMDSV1FallbackDisabled *bool
+	EC2IMDSv1Disabled *bool
 
 	// Specifies the EC2 Instance Metadata Service default endpoint selection mode (IPv4 or IPv6)
 	//
@@ -307,6 +307,9 @@ func NewEnvConfig() (EnvConfig, error) {
 		return cfg, err
 	}
 	cfg.EC2IMDSEndpoint = os.Getenv(awsEc2MetadataServiceEndpointEnvVar)
+	if err := setBoolPtrFromEnvVal(&cfg.EC2IMDSv1Disabled, []string{awsEc2MetadataV1DisabledEnvVar}); err != nil {
+		return cfg, err
+	}
 
 	if err := setBoolPtrFromEnvVal(&cfg.S3DisableMultiRegionAccessPoints, []string{awsS3DisableMultiRegionAccessPointEnvVar}); err != nil {
 		return cfg, err
@@ -328,9 +331,6 @@ func NewEnvConfig() (EnvConfig, error) {
 		return cfg, err
 	}
 	if err := setRetryModeFromEnvVal(&cfg.RetryMode, []string{awsRetryMode}); err != nil {
-		return cfg, err
-	}
-	if err := setBoolPtrFromEnvVal(&cfg.EC2IMDSV1FallbackDisabled, []string{awsEc2MetadataV1Disabled}); err != nil {
 		return cfg, err
 	}
 
@@ -655,15 +655,6 @@ func (c EnvConfig) GetEC2IMDSClientEnableState() (imds.ClientEnableState, bool, 
 	return c.EC2IMDSClientEnableState, true, nil
 }
 
-// GetEC2IMDSV1FallbackDisabled ...
-func (c EnvConfig) GetEC2IMDSV1FallbackDisabled() (bool, bool) {
-	if c.EC2IMDSV1FallbackDisabled == nil {
-		return false, false
-	}
-
-	return *c.EC2IMDSV1FallbackDisabled, true
-}
-
 // GetEC2IMDSEndpointMode implements a EC2IMDSEndpointMode option resolver interface.
 func (c EnvConfig) GetEC2IMDSEndpointMode() (imds.EndpointModeState, bool, error) {
 	if c.EC2IMDSEndpointMode == imds.EndpointModeStateUnset {
@@ -680,4 +671,14 @@ func (c EnvConfig) GetEC2IMDSEndpoint() (string, bool, error) {
 	}
 
 	return c.EC2IMDSEndpoint, true, nil
+}
+
+// GetEC2IMDSV1FallbackDisabled implements an EC2IMDSV1FallbackDisabled option
+// resolver interface.
+func (c EnvConfig) GetEC2IMDSV1FallbackDisabled() (bool, bool) {
+	if c.EC2IMDSv1Disabled == nil {
+		return false, false
+	}
+
+	return *c.EC2IMDSv1Disabled, true
 }
