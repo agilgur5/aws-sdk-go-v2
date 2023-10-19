@@ -3397,7 +3397,7 @@ func awsRestjson1_deserializeOpDocumentDescribeReplicatorOutput(v **DescribeRepl
 				if !ok {
 					return fmt.Errorf("expected __boolean to be of type *bool, got %T instead", value)
 				}
-				sv.IsReplicatorReference = jtv
+				sv.IsReplicatorReference = ptr.Bool(jtv)
 			}
 
 		case "kafkaClusters":
@@ -11927,7 +11927,7 @@ func awsRestjson1_deserializeDocumentConsumerGroupReplication(v **types.Consumer
 				if !ok {
 					return fmt.Errorf("expected __boolean to be of type *bool, got %T instead", value)
 				}
-				sv.DetectAndCopyNewConsumerGroups = jtv
+				sv.DetectAndCopyNewConsumerGroups = ptr.Bool(jtv)
 			}
 
 		case "synchroniseConsumerGroupOffsets":
@@ -11936,7 +11936,7 @@ func awsRestjson1_deserializeDocumentConsumerGroupReplication(v **types.Consumer
 				if !ok {
 					return fmt.Errorf("expected __boolean to be of type *bool, got %T instead", value)
 				}
-				sv.SynchroniseConsumerGroupOffsets = jtv
+				sv.SynchroniseConsumerGroupOffsets = ptr.Bool(jtv)
 			}
 
 		default:
@@ -13558,7 +13558,7 @@ func awsRestjson1_deserializeDocumentReplicatorSummary(v **types.ReplicatorSumma
 				if !ok {
 					return fmt.Errorf("expected __boolean to be of type *bool, got %T instead", value)
 				}
-				sv.IsReplicatorReference = jtv
+				sv.IsReplicatorReference = ptr.Bool(jtv)
 			}
 
 		case "kafkaClustersSummary":
@@ -14124,7 +14124,7 @@ func awsRestjson1_deserializeDocumentTopicReplication(v **types.TopicReplication
 				if !ok {
 					return fmt.Errorf("expected __boolean to be of type *bool, got %T instead", value)
 				}
-				sv.CopyAccessControlListsForTopics = jtv
+				sv.CopyAccessControlListsForTopics = ptr.Bool(jtv)
 			}
 
 		case "copyTopicConfigurations":
@@ -14133,7 +14133,7 @@ func awsRestjson1_deserializeDocumentTopicReplication(v **types.TopicReplication
 				if !ok {
 					return fmt.Errorf("expected __boolean to be of type *bool, got %T instead", value)
 				}
-				sv.CopyTopicConfigurations = jtv
+				sv.CopyTopicConfigurations = ptr.Bool(jtv)
 			}
 
 		case "detectAndCopyNewTopics":
@@ -14142,7 +14142,7 @@ func awsRestjson1_deserializeDocumentTopicReplication(v **types.TopicReplication
 				if !ok {
 					return fmt.Errorf("expected __boolean to be of type *bool, got %T instead", value)
 				}
-				sv.DetectAndCopyNewTopics = jtv
+				sv.DetectAndCopyNewTopics = ptr.Bool(jtv)
 			}
 
 		case "topicsToExclude":

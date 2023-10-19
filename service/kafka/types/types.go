@@ -561,11 +561,11 @@ type ConsumerGroupReplication struct {
 	ConsumerGroupsToExclude []string
 
 	// Enables synchronization of consumer groups to target cluster.
-	DetectAndCopyNewConsumerGroups bool
+	DetectAndCopyNewConsumerGroups *bool
 
 	// Enables synchronization of consumer group offsets to target cluster. The
 	// translated offsets will be written to topic __consumer_offsets.
-	SynchroniseConsumerGroupOffsets bool
+	SynchroniseConsumerGroupOffsets *bool
 
 	noSmithyDocumentSerde
 }
@@ -587,13 +587,13 @@ type ConsumerGroupReplicationUpdate struct {
 	// Enables synchronization of consumer groups to target cluster.
 	//
 	// This member is required.
-	DetectAndCopyNewConsumerGroups bool
+	DetectAndCopyNewConsumerGroups *bool
 
 	// Enables synchronization of consumer group offsets to target cluster. The
 	// translated offsets will be written to topic __consumer_offsets.
 	//
 	// This member is required.
-	SynchroniseConsumerGroupOffsets bool
+	SynchroniseConsumerGroupOffsets *bool
 
 	noSmithyDocumentSerde
 }
@@ -1123,7 +1123,7 @@ type ReplicatorSummary struct {
 	CurrentVersion *string
 
 	// Whether this resource is a replicator reference.
-	IsReplicatorReference bool
+	IsReplicatorReference *bool
 
 	// Kafka Clusters used in setting up sources / targets for replication.
 	KafkaClustersSummary []KafkaClusterSummary
@@ -1265,14 +1265,14 @@ type TopicReplication struct {
 
 	// Whether to periodically configure remote topic ACLs to match their
 	// corresponding upstream topics.
-	CopyAccessControlListsForTopics bool
+	CopyAccessControlListsForTopics *bool
 
 	// Whether to periodically configure remote topics to match their corresponding
 	// upstream topics.
-	CopyTopicConfigurations bool
+	CopyTopicConfigurations *bool
 
 	// Whether to periodically check for new topics and partitions.
-	DetectAndCopyNewTopics bool
+	DetectAndCopyNewTopics *bool
 
 	// List of regular expression patterns indicating the topics that should not be
 	// replicated.
@@ -1288,18 +1288,18 @@ type TopicReplicationUpdate struct {
 	// corresponding upstream topics.
 	//
 	// This member is required.
-	CopyAccessControlListsForTopics bool
+	CopyAccessControlListsForTopics *bool
 
 	// Whether to periodically configure remote topics to match their corresponding
 	// upstream topics.
 	//
 	// This member is required.
-	CopyTopicConfigurations bool
+	CopyTopicConfigurations *bool
 
 	// Whether to periodically check for new topics and partitions.
 	//
 	// This member is required.
-	DetectAndCopyNewTopics bool
+	DetectAndCopyNewTopics *bool
 
 	// List of regular expression patterns indicating the topics that should not be
 	// replicated.

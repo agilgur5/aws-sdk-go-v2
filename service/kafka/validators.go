@@ -1292,6 +1292,12 @@ func validateConsumerGroupReplicationUpdate(v *types.ConsumerGroupReplicationUpd
 	if v.ConsumerGroupsToReplicate == nil {
 		invalidParams.Add(smithy.NewErrParamRequired("ConsumerGroupsToReplicate"))
 	}
+	if v.DetectAndCopyNewConsumerGroups == nil {
+		invalidParams.Add(smithy.NewErrParamRequired("DetectAndCopyNewConsumerGroups"))
+	}
+	if v.SynchroniseConsumerGroupOffsets == nil {
+		invalidParams.Add(smithy.NewErrParamRequired("SynchroniseConsumerGroupOffsets"))
+	}
 	if invalidParams.Len() > 0 {
 		return invalidParams
 	} else {
@@ -1611,6 +1617,15 @@ func validateTopicReplicationUpdate(v *types.TopicReplicationUpdate) error {
 		return nil
 	}
 	invalidParams := smithy.InvalidParamsError{Context: "TopicReplicationUpdate"}
+	if v.CopyAccessControlListsForTopics == nil {
+		invalidParams.Add(smithy.NewErrParamRequired("CopyAccessControlListsForTopics"))
+	}
+	if v.CopyTopicConfigurations == nil {
+		invalidParams.Add(smithy.NewErrParamRequired("CopyTopicConfigurations"))
+	}
+	if v.DetectAndCopyNewTopics == nil {
+		invalidParams.Add(smithy.NewErrParamRequired("DetectAndCopyNewTopics"))
+	}
 	if v.TopicsToExclude == nil {
 		invalidParams.Add(smithy.NewErrParamRequired("TopicsToExclude"))
 	}

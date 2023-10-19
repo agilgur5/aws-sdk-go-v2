@@ -2476,8 +2476,8 @@ func awsRestjson1_serializeOpHttpBindingsListReplicatorsInput(v *ListReplicators
 		return fmt.Errorf("unsupported serialization of nil %T", v)
 	}
 
-	if v.MaxResults != 0 {
-		encoder.SetQuery("maxResults").Integer(v.MaxResults)
+	if v.MaxResults != nil {
+		encoder.SetQuery("maxResults").Integer(*v.MaxResults)
 	}
 
 	if v.NextToken != nil {
@@ -4528,14 +4528,14 @@ func awsRestjson1_serializeDocumentConsumerGroupReplication(v *types.ConsumerGro
 		}
 	}
 
-	if v.DetectAndCopyNewConsumerGroups {
+	if v.DetectAndCopyNewConsumerGroups != nil {
 		ok := object.Key("detectAndCopyNewConsumerGroups")
-		ok.Boolean(v.DetectAndCopyNewConsumerGroups)
+		ok.Boolean(*v.DetectAndCopyNewConsumerGroups)
 	}
 
-	if v.SynchroniseConsumerGroupOffsets {
+	if v.SynchroniseConsumerGroupOffsets != nil {
 		ok := object.Key("synchroniseConsumerGroupOffsets")
-		ok.Boolean(v.SynchroniseConsumerGroupOffsets)
+		ok.Boolean(*v.SynchroniseConsumerGroupOffsets)
 	}
 
 	return nil
@@ -4559,14 +4559,14 @@ func awsRestjson1_serializeDocumentConsumerGroupReplicationUpdate(v *types.Consu
 		}
 	}
 
-	{
+	if v.DetectAndCopyNewConsumerGroups != nil {
 		ok := object.Key("detectAndCopyNewConsumerGroups")
-		ok.Boolean(v.DetectAndCopyNewConsumerGroups)
+		ok.Boolean(*v.DetectAndCopyNewConsumerGroups)
 	}
 
-	{
+	if v.SynchroniseConsumerGroupOffsets != nil {
 		ok := object.Key("synchroniseConsumerGroupOffsets")
-		ok.Boolean(v.SynchroniseConsumerGroupOffsets)
+		ok.Boolean(*v.SynchroniseConsumerGroupOffsets)
 	}
 
 	return nil
@@ -5060,19 +5060,19 @@ func awsRestjson1_serializeDocumentTopicReplication(v *types.TopicReplication, v
 	object := value.Object()
 	defer object.Close()
 
-	if v.CopyAccessControlListsForTopics {
+	if v.CopyAccessControlListsForTopics != nil {
 		ok := object.Key("copyAccessControlListsForTopics")
-		ok.Boolean(v.CopyAccessControlListsForTopics)
+		ok.Boolean(*v.CopyAccessControlListsForTopics)
 	}
 
-	if v.CopyTopicConfigurations {
+	if v.CopyTopicConfigurations != nil {
 		ok := object.Key("copyTopicConfigurations")
-		ok.Boolean(v.CopyTopicConfigurations)
+		ok.Boolean(*v.CopyTopicConfigurations)
 	}
 
-	if v.DetectAndCopyNewTopics {
+	if v.DetectAndCopyNewTopics != nil {
 		ok := object.Key("detectAndCopyNewTopics")
-		ok.Boolean(v.DetectAndCopyNewTopics)
+		ok.Boolean(*v.DetectAndCopyNewTopics)
 	}
 
 	if v.TopicsToExclude != nil {
@@ -5096,19 +5096,19 @@ func awsRestjson1_serializeDocumentTopicReplicationUpdate(v *types.TopicReplicat
 	object := value.Object()
 	defer object.Close()
 
-	{
+	if v.CopyAccessControlListsForTopics != nil {
 		ok := object.Key("copyAccessControlListsForTopics")
-		ok.Boolean(v.CopyAccessControlListsForTopics)
+		ok.Boolean(*v.CopyAccessControlListsForTopics)
 	}
 
-	{
+	if v.CopyTopicConfigurations != nil {
 		ok := object.Key("copyTopicConfigurations")
-		ok.Boolean(v.CopyTopicConfigurations)
+		ok.Boolean(*v.CopyTopicConfigurations)
 	}
 
-	{
+	if v.DetectAndCopyNewTopics != nil {
 		ok := object.Key("detectAndCopyNewTopics")
-		ok.Boolean(v.DetectAndCopyNewTopics)
+		ok.Boolean(*v.DetectAndCopyNewTopics)
 	}
 
 	if v.TopicsToExclude != nil {
